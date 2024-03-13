@@ -1,17 +1,35 @@
+import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Card, Button } from 'react-native-paper';
 
-export default function EquipeScreen() {
+export default function EquipeScreen({ navigation }) {
+  const CardEquipe = () => {
+    return (
+      <Card style={styles.card}>
+        <Card.Content>
+          <Text>Card title</Text>
+          <Text>Card content</Text>
+        </Card.Content>
+      </Card>
+    );
+  };
+
   return (
-    <View style={styles.container}>
-        <Text>Equipe!</Text>
-      </View>
+    <View>
+      <CardEquipe />
+      <Button mode="contained" onPress={() => navigation.navigate('profile')}>
+        Aperte aqui!
+      </Button>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+  card: {
+    width: 200,
+    height: 100,
+    backgroundColor: '#fff',
+    borderColor: 'red',
+    borderWidth: 1,
+  },
+});
