@@ -7,35 +7,37 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState({}); // Objeto para armazenar itens com suas quantidades
+  const [cartItems, setCartItems] = useState([]);
 
   const addItemToCart = (item) => {
-    const itemId = item.id;
-    const newCartItems = { ...cartItems };
+    console.log(cartItems);
+    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
 
-    if (newCartItems[itemId]) {
-      newCartItems[itemId] += 1; // Incrementa a quantidade se o item já estiver no carrinho
+    if (existingItem) {
+      const updatedCartItems = cartItems.map((cartItem) =>
+        cartItem.id === item.id ? { ...cartItem, qtd: cartItem.qtd + 1 } : cartItem
+      );
+      setCartItems(updatedCartItems);
     } else {
-      newCartItems[itemId] = 1; // Adiciona o item ao carrinho com quantidade inicial de 1
+      setCartItems([...cartItems, { ...item, qtd: 1 }]);
     }
-
-    setCartItems(newCartItems);
   };
 
-  const removeItemFromCart = (itemId, quantityToRemove = 1) => {
-    const newCartItems = { ...cartItems };
-
-    if (newCartItems[itemId]) {
-      newCartItems[itemId] -= quantityToRemove; // Reduz a quantidade do item no carrinho
-      if (newCartItems[itemId] <= 0) {
-        delete newCartItems[itemId]; // Remove o item do carrinho se a quantidade for zero ou menos
+  const removeItemFromCart = (itemId) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.id === itemId) {
+        const updatedItem = { ...item, qtd: item.qtd - 1 };
+        return updatedItem.qtd <= 0 ? null : updatedItem;
       }
-      setCartItems(newCartItems);
-    }
+      return item;
+    });
+
+    const filteredCartItems = updatedCartItems.filter((item) => item !== null);
+    setCartItems(filteredCartItems);
   };
 
   const clearCart = () => {
-    setCartItems({}); // Limpa todos os itens do carrinho
+    setCartItems([]);
   };
 
   return (

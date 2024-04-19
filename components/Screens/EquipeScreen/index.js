@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
     width: 200,
     height: 300,
     backgroundColor: '#fff',
-    shadowColor: 'black'
+    boxShadow: 'black'
   },
 });

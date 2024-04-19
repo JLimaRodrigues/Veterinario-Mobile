@@ -53,7 +53,7 @@ export default function Main(){
   return (
  <NavigationContainer>
   <Stack.Navigator>
-    <Stack.Screen name="drawerScreen" component={DrawerScreen} options={{ headerShown: false }}/>
+    <Stack.Screen name="voltar" component={DrawerScreen} options={{ headerShown: false }}/>
     <Stack.Screen name="carrinho" component={CarrinhoScreen} />
   </Stack.Navigator>
  </NavigationContainer>
